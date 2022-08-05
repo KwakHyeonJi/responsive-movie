@@ -88,11 +88,11 @@ const TextBox = styled.div`
 
 const KeywordList = styled.ul<{ adult: boolean }>`
     display: flex;
-    gap: 0.1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
     margin: 1rem 0;
 
     li {
-        margin-right: 1rem;
         padding: 0.2rem 1rem;
         border: 2px solid ${({ theme }) => theme.color.text};
         border-radius: 30px;
