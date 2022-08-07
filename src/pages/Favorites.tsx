@@ -9,7 +9,7 @@ const FavoritesLayout = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10rem 1rem;
+    padding: 10rem 0 5rem 0;
 `
 
 const FavoriteList = styled.ul`
@@ -23,20 +23,16 @@ const FavoriteList = styled.ul`
     }
 
     @media ${({ theme }) => theme.device.mobile} {
-        width: 50%;
-        gap: 1rem;
+        width: 60%;
     }
 `
 
-const Title = styled.p`
+const Title = styled.h2`
     display: flex;
     justify-content: space-between;
-    align-items: end;
     font-weight: bold;
-
-    span:first-child {
-        font-size: 1.2rem;
-    }
+    padding: 0 0.5rem;
+    font-size: 1.2rem;
 `
 
 const Favorites = () => {

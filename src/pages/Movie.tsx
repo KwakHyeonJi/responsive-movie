@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { MdStar } from 'react-icons/md'
 import { useParams } from 'react-router'
+import { MdStar } from 'react-icons/md'
 import styled from 'styled-components'
 
 import apiConfig from '../api/apiConfig'
 import tmdbApi from '../api/tmdbApi'
-import Cast from '../components/Cast'
-import LikeButton from '../components/LikeButton'
 import { addItem, delItem, selectFavorite } from '../redux/favorites'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
+import LikeButton from '../components/LikeButton'
+import Cast from '../components/Cast'
 
 const MovieLayout = styled.div<{ background: string }>`
     position: relative;
@@ -17,7 +17,7 @@ const MovieLayout = styled.div<{ background: string }>`
     background-image: url(${({ background }) => background});
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: center;
 `
 
 const Overlay = styled.div`
@@ -70,7 +70,7 @@ const TextBox = styled.div`
     }
 
     p:nth-of-type(2) {
-        padding: 0.2rem 0 1rem 0;
+        margin: 0.2rem 0 1rem 0;
         line-height: 1;
 
         span {

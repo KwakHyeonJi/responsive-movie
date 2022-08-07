@@ -1,8 +1,8 @@
 import React from 'react'
 
+import { movieType } from '../api/tmdbApi'
 import Main from '../components/Main'
 import Row from '../components/Row'
-import { movieType } from '../api/tmdbApi'
 
 const Home = () => {
     return (

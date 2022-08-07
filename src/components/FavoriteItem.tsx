@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { MdStar } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
+import { MdStar } from 'react-icons/md'
 import styled from 'styled-components'
 
 import apiConfig from '../api/apiConfig'
@@ -9,8 +9,7 @@ import tmdbApi, { Movie } from '../api/tmdbApi'
 const FavoriteItemLayout = styled.li`
     display: flex;
     height: 180px;
-    padding: 1rem;
-    border-radius: 5px;
+    padding: 0.5rem;
     cursor: pointer;
 
     &:hover {
@@ -37,30 +36,26 @@ const Poster = styled.img`
 
 const ContentBox = styled.div`
     overflow: hidden;
-    margin: 0 1.5rem;
+    margin: 0 1rem;
 
     p {
         overflow: hidden;
-        display: -webkit-box;
-        white-space: normal;
-        -webkit-box-orient: vertical;
-        width: 100%;
+        text-overflow: ellipsis;
     }
 
     p:nth-child(1) {
         font-size: 1.5rem;
         font-weight: bold;
-        -webkit-line-clamp: 1;
-    }
-
-    p:nth-child(4) {
-        margin-top: 1rem;
-        -webkit-line-clamp: 2;
+        white-space: nowrap;
     }
 
     p:nth-child(3) {
         display: flex;
         align-items: center;
+    }
+
+    p:nth-child(4) {
+        margin-top: 0.5rem;
     }
 
     @media ${({ theme }) => theme.device.mobile} {
@@ -71,10 +66,10 @@ const ContentBox = styled.div`
             font-size: 1.2rem;
         }
 
-        p:nth-child(2),
         p:nth-child(4) {
-            height: 0;
             margin: 0;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
     }
 `
@@ -84,6 +79,10 @@ const FavoriteItem = ({ id }: { id: number }) => {
 
     const navigate = useNavigate()
     const image = (imgPath: string) => apiConfig.w500Image(imgPath)
+
+    const handleClick = () => {
+        navigate(`/Movie/${id}`)
+    }
 
     useEffect(() => {
         const getMovieDetails = async () => {
@@ -105,10 +104,6 @@ const FavoriteItem = ({ id }: { id: number }) => {
         }
         getMovieDetails()
     }, [id])
-
-    const handleClick = () => {
-        navigate(`/Movie/${id}`)
-    }
 
     return (
         <>

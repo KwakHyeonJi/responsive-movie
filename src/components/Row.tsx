@@ -1,17 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react'
-import styled from 'styled-components'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
+import styled from 'styled-components'
 
 import tmdbApi, { rowMovie } from '../api/tmdbApi'
 import MovieItem from './MovieItem'
 
 const RowLayout = styled.div`
     padding: 0 1rem;
-`
 
-const Title = styled.h2`
-    padding: 1rem 0;
-    font-weight: bold;
+    h2 {
+        padding: 1rem 0;
+        font-weight: bold;
+    }
 `
 
 const MovieBox = styled.div`
@@ -108,7 +108,7 @@ const Row = ({ title, movieType }: RowProps) => {
 
     return (
         <RowLayout>
-            <Title>{title}</Title>
+            <h2>{title}</h2>
             <MovieBox>
                 <MovieSlider ref={slider}>
                     {movies.map((movie) => (

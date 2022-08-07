@@ -26,9 +26,9 @@ const GlobalStyle = createGlobalStyle`
     border:none;
     border-radius: 0;
     background: inherit;
+    box-shadow: none;
     color: inherit;
     font-family: 'Lato', sans-serif;
-    box-shadow: none;
     cursor: pointer;
   }
 

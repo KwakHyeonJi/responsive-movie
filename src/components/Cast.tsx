@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import apiConfig from '../api/apiConfig'
 import tmdbApi from '../api/tmdbApi'
 
-const Title = styled.div`
+const Title = styled.p`
     padding: 1rem 0 0.5rem 0;
     font-size: 1.4rem;
     font-weight: bold;
@@ -30,7 +30,7 @@ const CastItem = styled.li`
     }
 `
 
-interface CastInterface {
+interface CastInfo {
     id: number
     name: string
     character: string
@@ -38,9 +38,11 @@ interface CastInterface {
 }
 
 const Cast = ({ id }: { id: number }) => {
-    const [cast, setCast] = useState<CastInterface[]>([])
+    const [cast, setCast] = useState<CastInfo[]>([])
 
-    const profile = (imgPath: string) => cast && apiConfig.w500Image(imgPath)
+    const profile = (imgPath: string) => {
+        return cast && apiConfig.w500Image(imgPath)
+    }
 
     useEffect(() => {
         const getCast = async () => {

@@ -14,6 +14,10 @@ const MovieItemLayout = styled.li`
     width: 280px;
     cursor: pointer;
 
+    img {
+        width: 100%;
+    }
+
     @media ${({ theme }) => theme.device.tablet} {
         width: 220px;
     }
@@ -21,10 +25,6 @@ const MovieItemLayout = styled.li`
     @media ${({ theme }) => theme.device.mobile} {
         width: 160px;
     }
-`
-
-const Background = styled.img`
-    width: 100%;
 `
 
 const Overlay = styled.div`
@@ -37,26 +37,26 @@ const Overlay = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #000;
+    background-color: rgba(0, 0, 0, 0.8);
 
     &:hover {
-        opacity: 0.8;
+        opacity: 1;
     }
 
     button {
         top: 10px;
         left: 10px;
     }
-`
 
-const Title = styled.p`
-    overflow: hidden;
-    width: 85%;
-    font-weight: bold;
-    text-overflow: ellipsis;
-    text-align: center;
-    line-height: 1.5;
-    white-space: nowrap;
+    p {
+        overflow: hidden;
+        width: 85%;
+        font-weight: bold;
+        text-overflow: ellipsis;
+        text-align: center;
+        line-height: 1.5;
+        white-space: nowrap;
+    }
 `
 
 const MovieItem = ({ movie }: { movie: rowMovie }) => {
@@ -81,9 +81,9 @@ const MovieItem = ({ movie }: { movie: rowMovie }) => {
 
     return (
         <MovieItemLayout>
-            <Background src={background} alt={movie.title}></Background>
+            <img src={background} alt={movie.title}></img>
             <Overlay>
-                <Title onClick={handleClickMovie}>{movie.title}</Title>
+                <p onClick={handleClickMovie}>{movie.title}</p>
                 <LikeButton onClick={handleClickLike} like={like} />
             </Overlay>
         </MovieItemLayout>

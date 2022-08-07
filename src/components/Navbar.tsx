@@ -11,28 +11,29 @@ const NavbarLayout = styled.div`
     padding: 1rem;
     z-index: 10;
 
+    h1 {
+        color: ${({ theme }) => theme.color.primary};
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
     a {
         margin: 0 1rem;
         padding: 0.3rem 0;
     }
+
     a:hover {
         border-bottom: 2px solid ${({ theme }) => theme.color.primary};
     }
 `
 
-const Title = styled.h1`
-    color: ${({ theme }) => theme.color.primary};
-    font-size: 2rem;
-    font-weight: bold;
-`
-
 const Navbar = () => {
     return (
         <NavbarLayout>
-            <Title>NETFLEX</Title>
+            <h1>MOVIE</h1>
             <div>
-                <Link to='.'>Home</Link>
-                <Link to='Favorites'>Favorites</Link>
+                <Link to='/'>Home</Link>
+                <Link to='/Favorites'>Favorites</Link>
             </div>
         </NavbarLayout>
     )

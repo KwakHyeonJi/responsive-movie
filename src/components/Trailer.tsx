@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
 import YouTube from 'react-youtube'
+import styled from 'styled-components'
 
 import tmdbApi from '../api/tmdbApi'
 
-const Block = styled.div`
+const Overlay = styled.div`
     position: absolute;
     top: 0;
     left: 0;
@@ -59,7 +59,7 @@ const Trailer = ({ id, onClose }: TrailerProps) => {
 
     return (
         <>
-            <Block onClick={onClose} />
+            <Overlay onClick={onClose} />
             <TrailerLayout>
                 <YouTube
                     videoId={video}

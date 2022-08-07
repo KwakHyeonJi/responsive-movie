@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import apiConfig from '../api/apiConfig'
@@ -22,20 +23,17 @@ const Overlay = styled.div`
 `
 
 const Background = styled.img`
+    position: absolute;
     width: 100%;
     height: 100%;
     object-fit: cover;
 `
 
 const ContentBox = styled.div`
-    position: absolute;
+    position: relative;
+    width: 90%;
     top: 25%;
     left: 5%;
-
-    p:first-of-type {
-        font-size: 0.9rem;
-        padding: 0.3rem 0;
-    }
 `
 
 const Title = styled.h1`
@@ -53,23 +51,24 @@ const Title = styled.h1`
 
 const ButtonBox = styled.div`
     margin: 0.8rem 0;
+
+    button {
+        padding: 0.5rem 1rem;
+        border: 1px solid #fff;
+        border-radius: 30px;
+    }
+
+    button + button {
+        margin-left: 0.8rem;
+    }
+
+    button:first-child {
+        border: 1px solid ${({ theme }) => theme.color.primary};
+        background: ${({ theme }) => theme.color.primary};
+    }
 `
 
-const TrailerButton = styled.button`
-    padding: 0.5rem 1rem;
-    border: 1px solid ${({ theme }) => theme.color.primary};
-    border-radius: 30px;
-    background: ${({ theme }) => theme.color.primary};
-`
-
-const LaterButton = styled.button`
-    padding: 0.5rem 1rem;
-    border: 1px solid #fff;
-    border-radius: 30px;
-    margin-left: 0.8rem;
-`
-
-const OverviewParagraph = styled.p`
+const Overview = styled.p`
     width: 35%;
 
     @media ${({ theme }) => theme.device.tablet} {
@@ -80,12 +79,18 @@ const OverviewParagraph = styled.p`
         width: 70%;
     }
 `
-type mainMovie = Pick<Movie, 'id' | 'title' | 'overview' | 'releaseDate' | 'backdropPath'>
+
+type mainMovie = Pick<Movie, 'id' | 'title' | 'overview' | 'backdropPath'>
 
 const Main = () => {
     const [movies, setMovies] = useState<mainMovie[]>([])
     const [movie, setMovie] = useState<mainMovie>()
     const [open, setOpen] = useState(false)
+    const navigate = useNavigate()
+
+    const handleClickMovie = () => {
+        navigate(`/Movie/${movie?.id}`)
+    }
 
     const truncateString = (str: string, num: number) => {
         if (str?.length > num) {
@@ -93,10 +98,6 @@ const Main = () => {
         } else {
             return str
         }
-    }
-
-    const handleClickLater = () => {
-        setMovie(movies[Math.floor(Math.random() * movies.length)])
     }
 
     const background = movie && apiConfig.originalImage(movie.backdropPath)
@@ -111,7 +112,6 @@ const Main = () => {
                     response.data.results.map((movie: { id: number; title: string; backdrop_path: string; overview: string; release_date: string }) => ({
                         id: movie.id,
                         title: movie.title,
-                        releaseDate: movie.release_date,
                         overview: movie.overview,
                         backdropPath: movie.backdrop_path,
                     }))
@@ -124,12 +124,16 @@ const Main = () => {
     }, [])
 
     useEffect(() => {
-        const updateMovie = () => setMovie(movies[Math.floor(Math.random() * movies.length)])
+        const updateMovie = () => {
+            setMovie(movies[Math.floor(Math.random() * movies.length)])
+        }
 
         updateMovie()
         const intervalId = setInterval(updateMovie, 10000)
 
-        return () => clearInterval(intervalId)
+        return () => {
+            clearInterval(intervalId)
+        }
     }, [movies])
 
     return (
@@ -140,11 +144,10 @@ const Main = () => {
                 <ContentBox>
                     <Title>{movie?.title}</Title>
                     <ButtonBox>
-                        <TrailerButton onClick={() => setOpen(true)}>Trailer</TrailerButton>
-                        <LaterButton onClick={handleClickLater}>Watch Later</LaterButton>
+                        <button onClick={() => setOpen(true)}>Trailer</button>
+                        <button onClick={handleClickMovie}>Details</button>
                     </ButtonBox>
-                    <p>Release date: {movie?.releaseDate}</p>
-                    <OverviewParagraph>{overview}</OverviewParagraph>
+                    <Overview>{overview}</Overview>
                 </ContentBox>
             </MainLayout>
             {movie && open && <Trailer id={movie.id} onClose={() => setOpen(false)} />}
